@@ -52,7 +52,7 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!newReleases) {
-      console.log('The shit you looking for did not make it homie... try again')
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       dispatch({
         type:'GET_NEW_RELEASES',
@@ -70,7 +70,7 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!genres) {
-      console.log('Genres are not available. Something may be broken');
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       dispatch({
         type: 'GET_GENRES',
@@ -88,7 +88,7 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if (!moreGenres) {
-      console.log("Sorry bro... that shit ain't here.. try again!");
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       dispatch({
         type: 'GET_MORE_GENRES',
@@ -108,13 +108,32 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!playlists) {
-      console.log('Well shit. We cant find this shit anywhere.');
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       console.log(playlists.data.playlists.items);
       dispatch({
         type: 'GET_PLAYLISTS',
         payload: playlists.data.playlists.items
       });
+    }
+  }
+
+  const getFeaturedPlaylists = async () => {
+    setLoading();
+    const playlists = await axios(`${SPOTIFY_API}v1/browse/featured-playlists?country=US&offset=0&limit=50`, {
+      method: 'GET',
+      headers: {
+        'Authorization' : 'Bearer ' + state.token
+      }
+    });
+    if(!playlists) {
+      console.log('What you are looking for did not make it. Try again?');
+    } else {
+      console.log(playlists.data.playlists.items)
+      dispatch({
+        type: 'GET_PLAYLISTS',
+        payload: playlists.data.playlists.items,
+      })
     }
   }
 
@@ -127,7 +146,7 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!tracks) {
-      console.log('Here we go again... Bro... it aint here!');
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       console.log(tracks.data.items);
       dispatch({
@@ -146,12 +165,11 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!tracks) {
-      console.log('Well bro... you missed again.')
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       console.log(tracks.data.tracks);
      
     }
-
   }
 
   const getArtistDetails = async (artistId) => {
@@ -163,7 +181,7 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!artist) {
-      console.log('Homie... it aint here... try again.');
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       dispatch({
         type: 'GET_ARTIST_DETAILS',
@@ -181,7 +199,7 @@ export const SpotifyProvider = ({children}) => {
       }
     });
     if(!tracks) {
-      console.log('Nope, no top tracks here... try again.')
+      console.log('What you are looking for did not make it. Try again?');
     } else {
       console.log(tracks.data.tracks);
       dispatch({
@@ -214,6 +232,7 @@ export const SpotifyProvider = ({children}) => {
     getGenres,
     getMoreGenres,
     getGenrePlaylists,
+    getFeaturedPlaylists,
     getPlaylistTracks,
     getArtistDetails,
     getArtistTopTracks,

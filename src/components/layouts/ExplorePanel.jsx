@@ -5,7 +5,7 @@ import SpotifyContext from '../../context/spotify/SpotifyContext';
 
 
 function ExplorePanel() {
-  const {getNewReleases, getGenres, genres, playlists, loading, deleteResults} = useContext(SpotifyContext);
+  const {getNewReleases, getGenres, getFeaturedPlaylists, loading, deleteResults} = useContext(SpotifyContext);
 
   return (
     <>
@@ -24,7 +24,7 @@ function ExplorePanel() {
           </button>
         </Link>
         <Link to="/playlists">
-          <button className="btn glass shadow-lg shadow-black w-40 my-2">
+          <button className="btn glass shadow-lg shadow-black w-40 my-2" onClick={getFeaturedPlaylists}>
             Featured Playlists
           </button>
         </Link>
