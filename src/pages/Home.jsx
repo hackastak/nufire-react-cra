@@ -1,13 +1,14 @@
 import React, {useEffect, useContext} from 'react';
 
-// import axios from 'axios';
 import SpotifyContext from '../context/spotify/SpotifyContext';
+import PlaylistResults from '../components/playlists/PlaylistResults';
+import ExplorePanel from '../components/layouts/ExplorePanel';
 
 
 function Home() {
 
   console.log('RENDERING HOME COMPONENT');
-  const {getToken, getGenres} = useContext(SpotifyContext);
+  const {getToken} = useContext(SpotifyContext);
 
   useEffect(() => {
     getToken();
@@ -16,14 +17,12 @@ function Home() {
 
   return (
     <>
-      <div>Home</div>
-      <button className="btn btn-outline btn-info" onClick={getGenres}>
-        Genres
-      </button>
-      
+      <ExplorePanel /> 
+
     </>
+    
     
   )
 }
 
-export default Home
+export default Home;
