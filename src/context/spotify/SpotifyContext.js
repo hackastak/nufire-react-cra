@@ -97,8 +97,6 @@ export const SpotifyProvider = ({children}) => {
     }
   }
 
-  
-
   const getGenrePlaylists = async (categoryId) => {
     setLoading();
     const playlists = await axios(`${SPOTIFY_API}v1/browse/categories/${categoryId}/playlists?country=US&offset=0&limit=50`, {
@@ -134,6 +132,23 @@ export const SpotifyProvider = ({children}) => {
         type: 'GET_PLAYLISTS',
         payload: playlists.data.playlists.items,
       })
+    }
+  }
+
+  const getRecommendations = async (searchInputsObject) => {
+    setLoading();
+
+    const playlists = await axios(`${SPOTIFY_API}v1/recommendations?limit=10&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA`, {
+      method: 'GET',
+      headers: {
+        'Authorization' : 'Bearer ' + state.token
+      }
+    });
+    if(!playlists) {
+      console.log('What you are looking for did not make it. Try again?');
+    } else {
+      console.log(playlists)
+      
     }
   }
 
@@ -229,11 +244,13 @@ export const SpotifyProvider = ({children}) => {
     loading: state.loading,
     getToken,
     getNewReleases,
+    getRecommendations,
     getGenres,
     getMoreGenres,
     getGenrePlaylists,
     getFeaturedPlaylists,
     getPlaylistTracks,
+    getAlbumTracks,
     getArtistDetails,
     getArtistTopTracks,
     deleteResults,
