@@ -28,11 +28,12 @@ function ExplorePanel() {
             Featured Playlists
           </button>
         </Link>
-        <Link to="/artists">
+        {/* Need to add search form for recommendations  */}
+        {/* <Link to="/artists">
           <button className="btn glass shadow-lg shadow-black w-40 my-2">
-            Top Artists
+            Recommendations
           </button>
-        </Link>
+        </Link> */}
       </div>
     {(window.location.pathname !== '/') && (
       <div className="flex justify-evenly mt-5 w-full">
