@@ -1,7 +1,6 @@
 import React, {useEffect, useContext} from 'react';
 
 import SpotifyContext from '../context/spotify/SpotifyContext';
-import PlaylistResults from '../components/playlists/PlaylistResults';
 import ExplorePanel from '../components/layouts/ExplorePanel';
 
 
