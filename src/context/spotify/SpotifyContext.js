@@ -28,9 +28,8 @@ export const SpotifyProvider = ({children}) => {
     const data = await axios(`${AUTH_ENDPOINT}`, {
       headers: {
         'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
       },
-      data: 'grant_type=client_credentials',
+      data: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET,
       method: 'POST'
     });
     if(!data) {
@@ -118,6 +117,9 @@ export const SpotifyProvider = ({children}) => {
 
   const getFeaturedPlaylists = async () => {
     setLoading();
+    if (state.token === '') {
+      await getToken();
+    }
     const playlists = await axios(`${SPOTIFY_API}v1/browse/featured-playlists?country=US&offset=0&limit=50`, {
       method: 'GET',
       headers: {

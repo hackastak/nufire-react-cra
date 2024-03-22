@@ -7,11 +7,15 @@ import ExplorePanel from '../components/layouts/ExplorePanel';
 function Home() {
 
   console.log('RENDERING HOME COMPONENT');
-  const {getToken} = useContext(SpotifyContext);
+  const {token, getToken, getFeaturedPlaylists} = useContext(SpotifyContext);
 
   useEffect(() => {
-    getToken();
+    getToken()
   }, []);
+
+  useEffect(() => {
+    getFeaturedPlaylists();
+  }, [token]);
   
 
   return (
